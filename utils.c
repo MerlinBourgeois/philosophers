@@ -6,7 +6,7 @@
 /*   By: mebourge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:12:19 by mebourge          #+#    #+#             */
-/*   Updated: 2023/06/05 15:12:20 by mebourge         ###   ########.fr       */
+/*   Updated: 2023/06/09 13:34:13 by mebourge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,31 +60,4 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return ((int)(result * sign));
-}
-
-void	ft_putnbr_fd(uint64_t n, int fd)
-{
-	char	str[13];
-	int		length;
-
-	if (n == 0)
-		str[0] = '0';
-	length = 0;
-	while (n != 0)
-	{
-		str[length++] = '0' + (n % 10);
-		n = (n / 10);
-	}
-	if (length > 0)
-		length--;
-	while (length >= 0)
-		write(fd, &str[length--], 1);
-}
-
-uint64_t	get_time(void)
-{
-	static struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
 }

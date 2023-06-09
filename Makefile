@@ -6,11 +6,11 @@
 #    By: mebourge <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 15:12:10 by mebourge          #+#    #+#              #
-#    Updated: 2023/06/05 15:17:46 by mebourge         ###   ########.fr        #
+#    Updated: 2023/06/09 13:35:03 by mebourge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS			= main.c utils.c exit.c messages.c init.c forks.c eat.c
+SRCS			= main.c utils.c exit.c messages.c init.c forks.c eat.c utils2.c
 OBJS			= $(SRCS:.c=.o)
 
 CC				= gcc

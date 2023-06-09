@@ -6,7 +6,7 @@
 /*   By: mebourge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:11:48 by mebourge          #+#    #+#             */
-/*   Updated: 2023/06/05 15:11:51 by mebourge         ###   ########.fr       */
+/*   Updated: 2023/06/09 13:33:20 by mebourge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # define TYPE_DIED 	4
 # define TYPE_OVER 	5
 
-struct s_state;
+struct	s_state;
 
-typedef struct		s_philo
+typedef struct s_philo
 {
 	int				position;
 	int				is_eating;
@@ -41,7 +41,7 @@ typedef struct		s_philo
 	pthread_mutex_t	eat_m;
 }					t_philo;
 
-typedef struct		s_state
+typedef struct s_state
 {
 	int				amount;
 	uint64_t		time_to_die;

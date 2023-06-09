@@ -6,7 +6,7 @@
 /*   By: mebourge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:12:07 by mebourge          #+#    #+#             */
-/*   Updated: 2023/06/05 15:12:08 by mebourge         ###   ########.fr       */
+/*   Updated: 2023/06/09 13:32:26 by mebourge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static void	*monitor_count(void *state_v)
 {
-	t_state *state;
+	t_state	*state;
 	int		i;
 	int		total;
 
-	state = (t_state*)state_v;
+	state = (t_state *)state_v;
 	total = 0;
 	while (total < state->must_eat_count)
 	{
@@ -29,14 +29,14 @@ static void	*monitor_count(void *state_v)
 	}
 	display_message(&state->philos[0], TYPE_OVER);
 	pthread_mutex_unlock(&state->somebody_dead_m);
-	return ((void*)0);
+	return ((void *)0);
 }
 
 static void	*monitor(void *philo_v)
 {
 	t_philo		*philo;
 
-	philo = (t_philo*)philo_v;
+	philo = (t_philo *)philo_v;
 	while (1)
 	{
 		pthread_mutex_lock(&philo->mutex);
@@ -45,7 +45,7 @@ static void	*monitor(void *philo_v)
 			display_message(philo, TYPE_DIED);
 			pthread_mutex_unlock(&philo->mutex);
 			pthread_mutex_unlock(&philo->state->somebody_dead_m);
-			return ((void*)0);
+			return ((void *)0);
 		}
 		pthread_mutex_unlock(&philo->mutex);
 		usleep(1000);
@@ -57,11 +57,11 @@ static void	*routine(void *philo_v)
 	t_philo		*philo;
 	pthread_t	tid;
 
-	philo = (t_philo*)philo_v;
+	philo = (t_philo *)philo_v;
 	philo->last_eat = get_time();
 	philo->limit = philo->last_eat + philo->state->time_to_die;
 	if (pthread_create(&tid, NULL, &monitor, philo_v) != 0)
-		return ((void*)1);
+		return ((void *)1);
 	pthread_detach(tid);
 	while (1)
 	{
@@ -70,7 +70,7 @@ static void	*routine(void *philo_v)
 		clean_forks(philo);
 		display_message(philo, TYPE_THINK);
 	}
-	return ((void*)0);
+	return ((void *)0);
 }
 
 static int	start_threads(t_state *state)
@@ -82,14 +82,14 @@ static int	start_threads(t_state *state)
 	state->start = get_time();
 	if (state->must_eat_count > 0)
 	{
-		if (pthread_create(&tid, NULL, &monitor_count, (void*)state) != 0)
+		if (pthread_create(&tid, NULL, &monitor_count, (void *)state) != 0)
 			return (1);
 		pthread_detach(tid);
 	}
 	i = 0;
 	while (i < state->amount)
 	{
-		philo = (void*)(&state->philos[i]);
+		philo = (void *)(&state->philos[i]);
 		if (pthread_create(&tid, NULL, &routine, philo) != 0)
 			return (1);
 		pthread_detach(tid);
@@ -107,10 +107,12 @@ int	main(int argc, char const **argv)
 		return (exit_error("error: bad arguments\n"));
 	if (init(&state, argc, argv) == 1)
 	{
-		return (clear_state(&state) && exit_error("error: incorrect arguments\n"));
+		return (clear_state(&state)
+			&& exit_error("error: incorrect arguments\n"));
 	}
 	if (start_threads(&state))
-		return (clear_state(&state) && exit_error("error: incorrect arguments\n"));
+		return (clear_state(&state)
+			&& exit_error("error: incorrect arguments\n"));
 	pthread_mutex_lock(&state.somebody_dead_m);
 	pthread_mutex_unlock(&state.somebody_dead_m);
 	clear_state(&state);
