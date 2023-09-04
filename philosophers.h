@@ -6,7 +6,7 @@
 /*   By: mebourge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:11:48 by mebourge          #+#    #+#             */
-/*   Updated: 2023/06/09 13:33:20 by mebourge         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:48:20 by mebourge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <stdio.h>
 
 # define TYPE_EAT 	0
 # define TYPE_SLEEP 1
@@ -79,5 +80,7 @@ void				clean_forks(t_philo *philo);
 void				eat(t_philo *philo);
 
 void				display_message(t_philo *philo, int type);
+
+void				ft_sleep(uint64_t time);
 
 #endif

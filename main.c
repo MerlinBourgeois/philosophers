@@ -6,7 +6,7 @@
 /*   By: mebourge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:12:07 by mebourge          #+#    #+#             */
-/*   Updated: 2023/06/09 13:32:26 by mebourge         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:55:19 by mebourge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void	*monitor_count(void *state_v)
 	while (total < state->must_eat_count)
 	{
 		i = 0;
-		while (i < state->amount)
-			pthread_mutex_lock(&state->philos[i++].eat_m);
+		// while (i < state->amount)
+			// pthread_mutex_lock(&state->philos[i++].eat_m);
 		total++;
 	}
 	display_message(&state->philos[0], TYPE_OVER);
@@ -48,7 +48,7 @@ static void	*monitor(void *philo_v)
 			return ((void *)0);
 		}
 		pthread_mutex_unlock(&philo->mutex);
-		usleep(1000);
+		ft_sleep(100);
 	}
 }
 
@@ -93,7 +93,7 @@ static int	start_threads(t_state *state)
 		if (pthread_create(&tid, NULL, &routine, philo) != 0)
 			return (1);
 		pthread_detach(tid);
-		usleep(100);
+		ft_sleep(50);
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mebourge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:34:20 by mebourge          #+#    #+#             */
-/*   Updated: 2023/06/09 13:34:46 by mebourge         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:38:21 by mebourge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,13 @@ uint64_t	get_time(void)
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
+}
+
+void	ft_sleep(uint64_t time)
+{
+	uint64_t	begin;
+
+	begin = get_time();
+	while (get_time() - begin < time)
+		usleep(10);
 }

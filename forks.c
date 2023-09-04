@@ -6,7 +6,7 @@
 /*   By: mebourge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:12:02 by mebourge          #+#    #+#             */
-/*   Updated: 2023/06/05 15:12:03 by mebourge         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:50:47 by mebourge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ void	clean_forks(t_philo *philo)
 	display_message(philo, TYPE_SLEEP);
 	pthread_mutex_unlock(&philo->state->forks_m[philo->lfork]);
 	pthread_mutex_unlock(&philo->state->forks_m[philo->rfork]);
-	usleep(philo->state->time_to_sleep * 1000);
+	ft_sleep(philo->state->time_to_sleep);
 }
