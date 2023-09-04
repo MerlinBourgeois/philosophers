@@ -6,7 +6,7 @@
 /*   By: mebourge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:12:19 by mebourge          #+#    #+#             */
-/*   Updated: 2023/06/09 13:34:13 by mebourge         ###   ########.fr       */
+/*   Updated: 2023/09/04 20:04:28 by mebourge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ int	ft_atoi(const char *str)
 		sign = -1;
 	if (*str == '-' || *str == '+')
 		str++;
-	while ((*str != '\0') && ft_isdigit(*str))
+	while ((*str != '\0'))
 	{
+		if (!ft_isdigit(*str) || sign == -1)
+			return (0);
 		if ((result > 922337203685477580 || (result == 922337203685477580
 					&& (*str - '0') > 7)) && sign == 1)
 			return (-1);

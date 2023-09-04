@@ -6,7 +6,7 @@
 #    By: mebourge <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 15:12:10 by mebourge          #+#    #+#              #
-#    Updated: 2023/09/04 15:14:41 by mebourge         ###   ########.fr        #
+#    Updated: 2023/09/04 20:05:42 by mebourge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,10 @@ OBJS			= $(SRCS:.c=.o)
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3 -fsanitize=thread -g
+CFLAGS			= -Wall -Wextra -Werror -finline-functions -fvectorize -fslp-vectorize -ffast-math -falign-functions -funroll-loops -fstrict-aliasing -fomit-frame-pointer -flto -Ofast -O1 -O2 -Os -O3
 LIBS			= -lpthread
 
-NAME			= philo_one
+NAME			= philo
 
 all:			$(NAME)
 

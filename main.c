@@ -6,7 +6,7 @@
 /*   By: mebourge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:12:07 by mebourge          #+#    #+#             */
-/*   Updated: 2023/09/04 15:35:46 by mebourge         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:48:54 by mebourge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,63 +32,37 @@ static void	*monitor_count(void *state_v)
 	return ((void *)0);
 }
 
-// static void	*monitor(void *philo_v)
-// {
-// 	t_philo		*philo;
+static void	*monitor(void *philo_v)
+{
+	t_philo		*philo;
 
-// 	philo = (t_philo *)philo_v;
-// 	while (1)
-// 	{
-// 		pthread_mutex_lock(&philo->mutex);
-// 		if (!philo->is_eating && get_time() > philo->limit)
-// 		{
-// 			display_message(philo, TYPE_DIED);
-// 			pthread_mutex_unlock(&philo->mutex);
-// 			pthread_mutex_unlock(&philo->state->somebody_dead_m);
-// 			return ((void *)0);
-// 		}
-// 		pthread_mutex_unlock(&philo->mutex);
-// 		ft_sleep(10);
-// 	}
-// }
-
-// static void	*monitor(void *s)
-// {
-// 	t_state		*state;
-// 	int			i;
-
-// 	state = (t_state *)s;
-// 	i = 0;
-// 	while (i < state->amount)
-// 	{
-// 		pthread_mutex_lock(&state->philos[i].mutex);
-// 		if (!state->philos[i].is_eating && get_time() > state->philos[i].limit)
-// 		{
-// 			display_message(&state->philos[i], TYPE_DIED);
-// 			pthread_mutex_unlock(&state->philos[i].mutex);
-// 			pthread_mutex_unlock(&state->somebody_dead_m);
-// 			return ((void *)0);
-// 		}
-// 		pthread_mutex_unlock(&state->philos[i].mutex);
-// 		ft_sleep(10);
-// 		i++;
-// 		if (i == state->amount)
-// 			i = 0;
-// 	}
-// 	return (NULL);
-// }
+	philo = (t_philo *)philo_v;
+	while (1)
+	{
+		pthread_mutex_lock(&philo->mutex);
+		if (!philo->is_eating && get_time() > philo->limit)
+		{
+			display_message(philo, TYPE_DIED);
+			pthread_mutex_unlock(&philo->mutex);
+			pthread_mutex_unlock(&philo->state->somebody_dead_m);
+			return ((void *)0);
+		}
+		pthread_mutex_unlock(&philo->mutex);
+		ft_sleep(10);
+	}
+}
 
 static void	*routine(void *philo_v)
 {
 	t_philo		*philo;
-	// pthread_t	tid;
+	pthread_t	tid;
 
 	philo = (t_philo *)philo_v;
 	philo->last_eat = get_time();
 	philo->limit = philo->last_eat + philo->state->time_to_die;
-	// if (pthread_create(&tid, NULL, &monitor, philo_v) != 0)
-	// 	return ((void *)1);
-	// pthread_detach(tid);
+	if (pthread_create(&tid, NULL, &monitor, philo_v) != 0)
+		return ((void *)1);
+	pthread_detach(tid);
 	while (1)
 	{
 		take_forks(philo);
@@ -103,7 +77,6 @@ static int	start_threads(t_state *state)
 {
 	int			i;
 	pthread_t	tid;
-	// pthread_t	mid;
 	void		*philo;
 
 	state->start = get_time();
@@ -114,8 +87,6 @@ static int	start_threads(t_state *state)
 		pthread_detach(tid);
 	}
 	i = 0;
-	// pthread_create(&mid, NULL, monitor, (void *)state);
-	// pthread_detach(mid);
 	while (i < state->amount)
 	{
 		philo = (void *)(&state->philos[i]);

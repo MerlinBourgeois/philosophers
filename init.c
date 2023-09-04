@@ -6,7 +6,7 @@
 /*   By: mebourge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:12:05 by mebourge          #+#    #+#             */
-/*   Updated: 2023/09/04 15:13:27 by mebourge         ###   ########.fr       */
+/*   Updated: 2023/09/04 20:03:01 by mebourge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	init2(t_state *state)
 		state->init_fail = 1;
 		return (1);
 	}
+	state->done = 0;
 	return (0);
 }
 
@@ -76,7 +77,7 @@ int	init(t_state *state, int argc, char const **argv)
 		state->must_eat_count = 0;
 	if (state->amount < 1 || state->amount > 200 || state->time_to_die < 60
 		|| state->time_to_eat < 60 || state->time_to_sleep < 60
-		|| state->must_eat_count < 0)
+		|| state->must_eat_count <= 0)
 	{
 		state->init_fail = 1;
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: mebourge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:11:48 by mebourge          #+#    #+#             */
-/*   Updated: 2023/09/04 15:19:31 by mebourge         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:54:52 by mebourge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ struct	s_state;
 typedef struct s_philo
 {
 	int				position;
-	int				is_eating;
+	atomic_int		is_eating;
 	atomic_ullong	limit;
 	uint64_t		last_eat;
 	int				lfork;
@@ -45,20 +45,21 @@ typedef struct s_philo
 
 typedef struct s_state
 {
+	atomic_int		done;
 	int				amount;
 	uint64_t		time_to_die;
 	uint64_t		time_to_eat;
 	uint64_t		time_to_sleep;
 	int				must_eat_count;
-
 	uint64_t		start;
-
 	t_philo			*philos;
 	pthread_mutex_t	*forks_m;
 	pthread_mutex_t	write_m;
 	pthread_mutex_t	somebody_dead_m;
 	int				init_fail;
 }					t_state;
+
+int					ft_isdigit(int c);
 
 int					ft_strlen(char const *str);
 

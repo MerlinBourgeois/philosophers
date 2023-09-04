@@ -6,7 +6,7 @@
 /*   By: mebourge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:12:13 by mebourge          #+#    #+#             */
-/*   Updated: 2023/06/05 15:12:14 by mebourge         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:14:10 by mebourge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ static char	*get_message(int type)
 
 void	display_message(t_philo *philo, int type)
 {
-	static int	done = 0;
-
 	pthread_mutex_lock(&philo->state->write_m);
-	if (!done)
+	if (!philo->state->done)
 	{
 		write(1, "\e[00m", 6);
 		ft_putnbr_fd(get_time() - philo->state->start, 1);
@@ -40,7 +38,7 @@ void	display_message(t_philo *philo, int type)
 		if (type != TYPE_OVER)
 			ft_putnbr_fd(philo->position + 1, 1);
 		if (type >= TYPE_DIED)
-			done = 1;
+			philo->state->done = 1;
 		write(1, "\t", 1);
 		write(1, get_message(type), ft_strlen(get_message(type)));
 	}
