@@ -6,7 +6,7 @@
 /*   By: mebourge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:12:02 by mebourge          #+#    #+#             */
-/*   Updated: 2023/09/04 14:50:47 by mebourge         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:04:51 by mebourge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,20 @@
 
 void	take_forks(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->state->forks_m[philo->lfork]);
-	display_message(philo, TYPE_FORK);
-	pthread_mutex_lock(&philo->state->forks_m[philo->rfork]);
-	display_message(philo, TYPE_FORK);
+	if (philo->position % 2 == 0)
+	{
+		pthread_mutex_lock(&philo->state->forks_m[philo->lfork]);
+		display_message(philo, TYPE_FORK);
+		pthread_mutex_lock(&philo->state->forks_m[philo->rfork]);
+		display_message(philo, TYPE_FORK);
+	}
+	else
+	{
+		pthread_mutex_lock(&philo->state->forks_m[philo->rfork]);
+		display_message(philo, TYPE_FORK);
+		pthread_mutex_lock(&philo->state->forks_m[philo->lfork]);
+		display_message(philo, TYPE_FORK);
+	}
 }
 
 void	clean_forks(t_philo *philo)

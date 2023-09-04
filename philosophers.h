@@ -6,7 +6,7 @@
 /*   By: mebourge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:11:48 by mebourge          #+#    #+#             */
-/*   Updated: 2023/09/04 14:48:20 by mebourge         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:19:31 by mebourge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <stdio.h>
+# include <stdatomic.h>
 
 # define TYPE_EAT 	0
 # define TYPE_SLEEP 1
@@ -32,7 +33,7 @@ typedef struct s_philo
 {
 	int				position;
 	int				is_eating;
-	uint64_t		limit;
+	atomic_ullong	limit;
 	uint64_t		last_eat;
 	int				lfork;
 	int				rfork;

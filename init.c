@@ -6,7 +6,7 @@
 /*   By: mebourge <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:12:05 by mebourge          #+#    #+#             */
-/*   Updated: 2023/09/04 14:46:37 by mebourge         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:13:27 by mebourge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	init_philos(t_state *state)
 		state->philos[i].state = state;
 		pthread_mutex_init(&state->philos[i].mutex, NULL);
 		pthread_mutex_init(&state->philos[i].eat_m, NULL);
-		// pthread_mutex_lock(&state->philos[i].eat_m);
+		pthread_mutex_lock(&state->philos[i].eat_m);
 		i++;
 	}
 }
